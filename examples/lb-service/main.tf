@@ -1,12 +1,12 @@
 provider "aws" {
-  region = "us-west-2"
+  region = "us-east-2"
 }
 
 data "aws_caller_identity" "current" {}
 
 locals {
   name   = "ecsdemo-frontend"
-  region = "us-west-2"
+  region = "us-east-2"
 
   container_port = 3000 # Container port is specific to this app example
   container_name = "ecsdemo-frontend"

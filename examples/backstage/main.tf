@@ -1,12 +1,12 @@
 provider "aws" {
-  region = "us-west-2"
+  region = "us-east-2"
 }
 
 data "aws_caller_identity" "current" {}
 
 locals {
   name   = "unicorn-ui"
-  region = "us-west-2"
+  region = "us-east-2"
 
   container_port = 7007 # Container port is specific to this app example
   container_name = "unicorn-ui"
@@ -277,7 +277,7 @@ module "codebuild_ci" {
   s3_bucket      = module.codepipeline_s3_bucket
 
   environment = {
-    image           = "aws/codebuild/standard:5.0"
+    image           = "aws/codebuild/standard:6.0"
     privileged_mode = true
     environment_variables = [
       {
@@ -298,6 +298,9 @@ module "codebuild_ci" {
         }, {
         name  = "BASE_URL"
         value = "http://${module.service_alb.lb_dns_name}"
+      },{
+        name  = "DOCKER_BUILDKIT"
+        value = "1"
       },
     ]
   }
